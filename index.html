@@ -2,40 +2,203 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>ng - contact</title>
-  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" href="/css/header.css">
-  <base href="/">
+    <meta charset="UTF-8">
+    <title>ng - contact</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css"/>
+    <link rel="stylesheet" href="/css/header.css">
+    <base href="/">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .container {
+            width: 100%;
+            background-color: #2A2A2D;
+            text-shadow: 0 1px 0 #171717;
+            position: fixed;
+            bottom: 0;
+        }
+
+        .myPlayer {
+            width: 80%;
+            height: 50px;
+            background-color: #333333;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        #change {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            text-decoration: none;
+
+        }
+
+        #play {
+            margin-left: 5px;
+            margin-top: 5px;
+            width: 45px;
+            height: 45px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        #play img {
+            width: 45px;
+            height: 45px;
+        }
+
+        .eson {
+            position: absolute;
+            top: 8px;
+            left: 100px;
+        }
+
+        .eson img {
+            border-radius: 5px;
+        }
+
+        .message {
+            position: absolute;
+            margin-left: 66px;
+            margin-top: 5px;
+            color: white;
+        }
+
+        .progress {
+            height: 10px;
+            width: 730px;
+            background-color: #191919;
+            border-radius: 5px;
+            display: inline-block;
+            position: absolute;
+            top: 30px;
+            left: 155px;
+        }
+
+        .step {
+            position: absolute;
+            margin-top: -5px;
+            margin-left: -2px;
+        }
+
+        /*引入图标字体*/
+        .icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+        }
+
+        .mv {
+            width: 25px;
+            height: 25px;
+            display: inline-block;
+            margin-left: 10px;
+            margin-bottom: -6px;
+            color: white;
+        }
+
+        .voice {
+            position: absolute;
+            top: 15%;
+            right: 21%;
+            font-size: 30px;
+        }
+
+        .ceshi {
+            height: 200px;
+            background-color: deepskyblue;
+        }
+
+        .changSong {
+            display: inline-block;
+            border: none;
+            position: absolute;
+            top: 15px;
+            right: 18%;
+            background: greenyellow;
+            border-radius: 10px;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+        }
+
+        .time {
+            position: absolute;
+            top: 20px;
+            right: 8%;
+            color: white;
+        }
+        .currentProgress{
+            height: 100%;
+            position: absolute;
+            width: 0;
+            background-color: red;
+        }
+    </style>
 </head>
 
 <body ng-app="app">
-  <div class="top-navigator">
+<div class="top-navigator">
     <div class="warp">
-      <a href="/" id="logo">logo</a>
-      <ul id="listItems">
-        <li><a href="/" class="nav-item">发现音乐</a></li>
-        <li><a href="/my">我的音乐</a></li>
-        <li><a href="/friend">朋友</a></li>
-        <li><a href="/store">商城</a></li>
-        <li><a href="/musicman">音乐人</a></li>
-        <li><a href="/download">下载客户端</a></li>
-      </ul>
+        <a href="/" id="logo">logo</a>
+        <ul id="listItems">
+            <li><a href="/" class="nav-item">发现音乐</a></li>
+            <li><a href="/my">我的音乐</a></li>
+            <li><a href="/friend">朋友</a></li>
+            <li><a href="/store">商城</a></li>
+            <li><a href="/musicman">音乐人</a></li>
+            <li><a href="/download">下载客户端</a></li>
+        </ul>
     </div>
-  </div>
-
-  <div class="container">
-    <div ng-view></div>
-  </div>
-  <div class="footer">
-    <audio src="music/k歌之王.mp3" controls autoplay>
-
-    </audio>
-    <button id='btn'> k歌之王</button>
-  </div>
-
+</div>
+<div ng-view></div>
+<div class="container">
+    <div class='myPlayer'>
+        <audio src='music/十年.mp3'></audio>
+        <a href="#" id='change'>
+            <svg class="icon mv" aria-hidden="true">
+                <use xlink:href="#icon-mv"></use>
+            </svg>
+        </a>
+        <a href="#" id='play'>
+            <img src="images/icn_ply6_hvr.png" alt="" title='播放/暂停'>
+        </a>
+        <div class='eson'>
+            <img src="images/eson.jpg" alt="">
+        </div>
+        <span class='message'>十年</span>
+        <div class="progress">
+            <div class='currentProgress'></div>
+            <div class="step"><img src="images/btn.png" alt=""></div>
+        </div>
+        <div class="time">
+            <span class="curr-time">00:00:00</span>/<span class="total-time">00:00:00</span>
+        </div>
+        <svg class="icon voice" aria-hidden="true">
+            <use xlink:href="#icon-yinliang"></use>
+        </svg>
+        <input type="button" value="切" class='changSong'>
+    </div>
+</div>
 </body>
-
 </html>
 <script src="/node_modules/angular/angular.js"></script>
 <script src="/node_modules/angular-route/angular-route.js"></script>
@@ -43,26 +206,84 @@
 <!-- <script src="/node_modules/angular-resource/angular-resource.js"></script> -->
 <script src="/js/main.js"></script>
 <script src="js/router.js"></script>
+<script src="./js/iconfont.js"></script>
 <script>
-  var btn = document.getElementById('btn');
-  var audio = document.getElementsByTagName('audio')[0];
-//  console.log(audio.src);
-  btn.onclick = function() {
-    var str = encodeURI('十年');
-    audio.src = 'http://127.0.0.1:5000/music/' + str + '.mp3';
-  }
+    {
+        // 导航点击事件
+        var ul = document.getElementById('listItems');
+        var links = ul.getElementsByTagName('a');
+        //  console.log(links);
+        for (var i = 0; i < links.length; i++) {
+            var link = links[i];
+            link.addEventListener('click', function () {
+                for (var j = 0; j < links.length; j++) {
+                    links[j].className = '';
+                }
+                this.className = 'nav-item';
+            })
+        }
+    }
 
-  // 导航点击事件
-  var ul = document.getElementById('listItems');
-  var links = ul.getElementsByTagName('a');
-//  console.log(links);
-  for(var i=0; i<links.length;i++){
-    var link = links[i];
-    link.addEventListener('click',function(){
-      for(var j=0;j<links.length;j++){
-        links[j].className = '';
-      }
-      this.className = 'nav-item';
-    })
-  }
+var audio = document.querySelector('audio');
+    var play = document.getElementById('play');
+    play.onclick = function () {
+        if(audio.paused){
+            audio.play();
+        }
+        else {
+            audio.pause();
+        }
+    }
+    // 设置时间进度
+    var totalTime = 0;
+    var songTotaTime = document.querySelector('.total-time');
+    audio.oncanplay = function () {
+        totalTime = audio.duration;
+        // 转化成 小时 分钟 秒钟的形式
+        var hour = '00';
+        var minute = Math.floor(totalTime/60);
+        var second = Math.floor(totalTime%60);
+        minute = minute>=10?minute:'0'+minute;
+        second = second>=10?second:'0'+second;
+        songTotaTime.innerHTML = hour+':'+minute+':'+second;
+    }
+    audio.ontimeupdate = function () {
+        var currentTime = audio.currentTime;
+        var hour = '00';
+        var minute = Math.floor(currentTime/60);
+        var second = Math.floor(currentTime%60);
+        minute = minute>=10?minute:'0'+minute;
+        second = second>=10?second:'0'+second;
+        document.querySelector('.curr-time').innerHTML = hour+':'+minute+':'+second;
+        document.querySelector('.curr-time').innerHTML = hour+':'+minute+':'+second;
+        // 点击可以动态的改变进度条
+        var percent =currentTime/totalTime;
+        document.querySelector('.currentProgress').style.width = percent*100+'%';
+        // 按钮跟着移动
+        document.querySelector('.step').style.left = percent*99+'%';
+    }
+    document.querySelector('.progress').onclick = function (e) {
+        var percent = e.offsetX / this.offsetWidth;
+//        让视频根上进度
+        audio.currentTime = percent * totalTime;
+        document.querySelector('.currentProgress').style.width = percent * 100 + "%";
+        document.querySelector('.step').style.left = percent*99+'%';
+    }
+    // 拖拽音乐 进行播放
+    document.body.ondragover = function (e) {
+        e.preventDefault();
+    }
+    document.querySelector('.container').ondrop = function (e) {
+        e.preventDefault();
+        var dropFile = e.dataTransfer.files[0];
+        console.log(dropFile);
+        var nameArr = dropFile.name.split('.')[0];
+        document.querySelector('.message').innerHTML = nameArr;
+        var reader = new  FileReader;
+        reader.readAsDataURL(dropFile);
+        reader.onload = function () {
+            audio.src = this.result;
+            audio.play();
+        }
+    }
 </script>
