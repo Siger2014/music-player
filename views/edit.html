@@ -1,0 +1,16 @@
+<form ng-submit='update(form)'>
+  <div class="form-group">
+    <label for="_name">姓名</label>
+    <input type="text" class="form-control" id="_name" placeholder="Name" ng-model='form.name'>
+  </div>
+  <div class="form-group">
+    <label for="_phone">电话</label>
+    <input type="text" class="form-control" id="_phone" placeholder="Password" ng-model='form.phone'>
+  </div>
+  <div class="form-group">
+    <label for="_remark">备注</label>
+    <textarea class="form-control" id="_remark" cols="30" rows="3" ng-model='form.remark'></textarea>
+  </div>
+  <a href="/" class="btn btn-default">取消</a>
+  <button type="submit" class="btn btn-default">保存</button>
+</form>

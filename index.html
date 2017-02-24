@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ng - contact</title>
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <base href="/">
+</head>
+
+<body ng-app="app">
+  <div class="top-navigator">
+    <div class="warp">
+      <a href="/" id="logo">logo</a>
+      <ul id="listItems">
+        <li><a href="/" class="nav-item">发现音乐</a></li>
+        <li><a href="/my">我的音乐</a></li>
+        <li><a href="/friend">朋友</a></li>
+        <li><a href="/store">商城</a></li>
+        <li><a href="/musicman">音乐人</a></li>
+        <li><a href="/download">下载客户端</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container">
+    <div ng-view></div>
+  </div>
+  <div class="footer">
+    <audio src="music/k歌之王.mp3" controls autoplay>
+
+    </audio>
+    <button id='btn'> k歌之王</button>
+  </div>
+
+</body>
+
+</html>
+<script src="/node_modules/angular/angular.js"></script>
+<script src="/node_modules/angular-route/angular-route.js"></script>
+<!-- 这个是使用jsonp进行跨域访问的时候 需要的资源-->
+<!-- <script src="/node_modules/angular-resource/angular-resource.js"></script> -->
+<script src="/js/main.js"></script>
+<script src="js/router.js"></script>
+<script>
+  var btn = document.getElementById('btn');
+  var audio = document.getElementsByTagName('audio')[0];
+//  console.log(audio.src);
+  btn.onclick = function() {
+    var str = encodeURI('十年');
+    audio.src = 'http://127.0.0.1:5000/music/' + str + '.mp3';
+  }
+
+  // 导航点击事件
+  var ul = document.getElementById('listItems');
+  var links = ul.getElementsByTagName('a');
+//  console.log(links);
+  for(var i=0; i<links.length;i++){
+    var link = links[i];
+    link.addEventListener('click',function(){
+      for(var j=0;j<links.length;j++){
+        links[j].className = '';
+      }
+      this.className = 'nav-item';
+    })
+  }
+</script>

@@ -1,0 +1,86 @@
+html,body{
+  margin: 0;
+  padding: 0;
+}
+/* 导航栏 */
+.top-navigator{
+  height: 70px;
+  width: 100%;
+  box-sizing: border-box;
+  background: url('../images/topbar.png') 0 -80px repeat;
+}
+
+.warp{
+  width: 90%;
+  margin: 0 auto;
+}
+
+.top-navigator ul{
+  list-style: none;
+  float: left;
+} 
+
+.top-navigator li{
+  float: left;
+  
+}
+
+#logo{
+  display: block;
+  float: left;
+  width: 162px;
+  height: 70px;
+  background: url('../images/topbar.png') 0 14px no-repeat;
+  text-indent: -99999px;
+  padding: 14px 0;
+  background-origin: border-box;
+  background-clip: content-box;
+}
+
+.top-navigator li a{
+  display: block;
+  color: #ccc;
+  text-decoration: none;
+  text-align: center;
+  font-size: 16px;
+  height: 70px;
+  line-height: 70px;
+  padding: 0 20px;
+  position: relative;
+}
+
+.top-navigator li a:hover{
+ background: url('../images/topbar.png') 0 -470px no-repeat;
+}
+
+.top-navigator li a::after{
+  display: block;
+  content: "";
+   background: url('../images/topbar.png') -55px -80px no-repeat;
+}
+
+.top-navigator li a:hover::after{
+  width: 2px;
+  height: 70px;
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+/*  background-color: aliceblue;*/
+  background: url('../images/topbar.png') -238px -470px no-repeat;
+}
+
+.nav-item{
+   background: url('../images/topbar.png') 0 -155px no-repeat;
+}
+
+.top-navigator li a::before{
+  width: 1px;
+  height: 12px;
+  content: "";
+  position: absolute;
+  top: 29px;
+  right: -1px;
+/*  background-color: aliceblue;*/
+  background: url('../images/topbar.png') 0 -332px no-repeat;
+}
