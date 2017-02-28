@@ -32,7 +32,12 @@
         }
 
         .myPlayer {
-            width: 80%;
+            /*            width: 80%;*/
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: center;
             height: 50px;
             background-color: #333333;
             margin: 0 auto;
@@ -42,17 +47,12 @@
         #change {
             width: 30px;
             height: 30px;
-            display: inline-block;
             text-decoration: none;
-
         }
 
         #play {
-            margin-left: 5px;
-            margin-top: 5px;
             width: 45px;
             height: 45px;
-            display: inline-block;
             text-decoration: none;
         }
 
@@ -62,9 +62,6 @@
         }
 
         .eson {
-            position: absolute;
-            top: 8px;
-            left: 100px;
         }
 
         .eson img {
@@ -72,30 +69,28 @@
         }
 
         .message {
-            position: absolute;
-            margin-left: 66px;
-            margin-top: 5px;
             color: white;
+            /*      position: absolute;*/
         }
 
         .progress {
-            height: 10px;
-            width: 730px;
+            height: 13px;
+            /*      width: 730px;*/
             background-color: #191919;
             border-radius: 5px;
-            display: inline-block;
-            position: absolute;
-            top: 30px;
-            left: 155px;
+            position: relative;
+            flex: auto;
+            margin: auto;
         }
 
         .step {
             position: absolute;
-            margin-top: -5px;
+            margin-top: -4px;
             margin-left: -2px;
         }
 
         /*引入图标字体*/
+
         .icon {
             width: 1em;
             height: 1em;
@@ -107,28 +102,20 @@
         .mv {
             width: 25px;
             height: 25px;
-            display: inline-block;
-            margin-left: 10px;
-            margin-bottom: -6px;
             color: white;
         }
 
         .voice {
-            position: absolute;
-            top: 15%;
-            right: 21%;
             font-size: 30px;
         }
+
         .ceshi {
             height: 200px;
             background-color: deepskyblue;
         }
+
         .changSong {
-            display: inline-block;
             border: none;
-            position: absolute;
-            top: 15px;
-            right: 18%;
             background: greenyellow;
             border-radius: 10px;
             width: 20px;
@@ -137,23 +124,23 @@
             line-height: 20px;
             cursor: pointer;
         }
+
         .time {
-            position: absolute;
-            top: 20px;
-            right: 8%;
             color: white;
         }
-        .currentProgress{
+
+        .currentProgress {
             height: 100%;
             position: absolute;
             width: 0;
             background-color: red;
+            margin-top: 0px;
         }
     </style>
 </head>
 
 <body ng-app="app">
-<div class="top-navigator">
+<div class="top-navigator container-fluid">
     <div class="warp">
         <a href="/" id="logo">logo</a>
         <ul id="listItems">
@@ -183,19 +170,22 @@
         </div>
         <span class='message'>十年</span>
         <div class="progress">
+
             <div class='currentProgress'></div>
             <div class="step"><img src="images/btn.png" alt=""></div>
         </div>
+
         <div class="time">
             <span class="curr-time">00:00:00</span>/<span class="total-time">00:00:00</span>
         </div>
-        <svg class="icon voice" aria-hidden="true">
+        <svg class="icon voice" aria-hidden="true"  id='voicePlus'>
             <use xlink:href="#icon-yinliang"></use>
         </svg>
-        <input type="button" value="切" class='changSong'>
+        <input type="button" value="减" class='changSong' id='voiceMinus'>
     </div>
 </div>
 </body>
+
 </html>
 <script src="/node_modules/angular/angular.js"></script>
 <script src="/node_modules/angular-route/angular-route.js"></script>
@@ -203,84 +193,125 @@
 <!-- <script src="/node_modules/angular-resource/angular-resource.js"></script> -->
 <script src="/js/main.js"></script>
 <script src="js/router.js"></script>
+<script src="/node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+<script src="node_modules/angular-animate/angular-animate.min.js"></script>
+<!--<script src="node_modules/angular-touch/angular-touch.min.js"></script>-->
+
 <script src="./js/iconfont.js"></script>
 <script>
     {
-        // 导航点击事件
-        var ul = document.getElementById('listItems');
-        var links = ul.getElementsByTagName('a');
-        //  console.log(links);
-        for (var i = 0; i < links.length; i++) {
-            var link = links[i];
-            link.addEventListener('click', function () {
-                for (var j = 0; j < links.length; j++) {
-                    links[j].className = '';
-                }
-                this.className = 'nav-item';
-            })
+        {
+            // 导航点击事件
+            var ul = document.getElementById('listItems');
+            var links = ul.getElementsByTagName('a');
+            //  console.log(links);
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i];
+                link.addEventListener('click', function () {
+                    for (var j = 0; j < links.length; j++) {
+                        links[j].className = '';
+                    }
+                    this.className = 'nav-item';
+                })
+            }
         }
-    }
+        var audio = document.querySelector('audio');
+        var play = document.getElementById('play');
+        var voicePlus = document.getElementById('voicePlus');
+        var voiceMinus = document.getElementById('voiceMinus');
+        var voiceNum = 0.5;
+        voicePlus.onclick = function () {
+            voiceNum>=1?voiceNum=1:voiceNum += 0.1;
+            audio.volume = voiceNum;
+        }
+        voiceMinus.onclick = function () {
+            voiceNum -= 0.1;
+            if(voiceNum<=0)
+            {
+                voiceNum = 0;
+            }
+            audio.volume = voiceNum;
+        }
 
-var audio = document.querySelector('audio');
-    var play = document.getElementById('play');
-    play.onclick = function () {
-        if(audio.paused){
-            audio.play();
+        var step =  document.querySelector('.step');
+        play.onclick = function () {
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
         }
-        else {
-            audio.pause();
+        // 增加控制音量的样式
+
+        // 增加拖拽按钮的功能
+        // 设置时间进度
+        var totalTime = 0;
+        var songTotaTime = document.querySelector('.total-time');
+        audio.oncanplay = function () {
+            totalTime = audio.duration;
+            // 转化成 小时 分钟 秒钟的形式
+            var hour = '00';
+            var minute = Math.floor(totalTime / 60);
+            var second = Math.floor(totalTime % 60);
+            minute = minute >= 10 ? minute : '0' + minute;
+            second = second >= 10 ? second : '0' + second;
+            songTotaTime.innerHTML = hour + ':' + minute + ':' + second;
         }
-    }
-    // 设置时间进度
-    var totalTime = 0;
-    var songTotaTime = document.querySelector('.total-time');
-    audio.oncanplay = function () {
-        totalTime = audio.duration;
-        // 转化成 小时 分钟 秒钟的形式
-        var hour = '00';
-        var minute = Math.floor(totalTime/60);
-        var second = Math.floor(totalTime%60);
-        minute = minute>=10?minute:'0'+minute;
-        second = second>=10?second:'0'+second;
-        songTotaTime.innerHTML = hour+':'+minute+':'+second;
-    }
-    audio.ontimeupdate = function () {
-        var currentTime = audio.currentTime;
-        var hour = '00';
-        var minute = Math.floor(currentTime/60);
-        var second = Math.floor(currentTime%60);
-        minute = minute>=10?minute:'0'+minute;
-        second = second>=10?second:'0'+second;
-        document.querySelector('.curr-time').innerHTML = hour+':'+minute+':'+second;
-        document.querySelector('.curr-time').innerHTML = hour+':'+minute+':'+second;
-        // 点击可以动态的改变进度条
-        var percent =currentTime/totalTime;
-        document.querySelector('.currentProgress').style.width = percent*100+'%';
-        // 按钮跟着移动
-        document.querySelector('.step').style.left = percent*99+'%';
-    }
-    document.querySelector('.progress').onclick = function (e) {
-        var percent = e.offsetX / this.offsetWidth;
-//        让视频根上进度
-        audio.currentTime = percent * totalTime;
-        document.querySelector('.currentProgress').style.width = percent * 100 + "%";
-        document.querySelector('.step').style.left = percent*99+'%';
-    }
-    // 拖拽音乐 进行播放
-    document.body.ondragover = function (e) {
-        e.preventDefault();
-    }
-    document.querySelector('.container').ondrop = function (e) {
-        e.preventDefault();
-        var dropFile = e.dataTransfer.files[0];
-        console.log(dropFile);
-        var nameArr = dropFile.name.split('.')[0];
-        document.querySelector('.message').innerHTML = nameArr;
-        var reader = new  FileReader;
-        reader.readAsDataURL(dropFile);
-        reader.onload = function () {
-            audio.src = this.result;
-            audio.play();
+        audio.ontimeupdate = function () {
+            var currentTime = audio.currentTime;
+            var hour = '00';
+            var minute = Math.floor(currentTime / 60);
+            var second = Math.floor(currentTime % 60);
+            minute = minute >= 10 ? minute : '0' + minute;
+            second = second >= 10 ? second : '0' + second;
+            document.querySelector('.curr-time').innerHTML = hour + ':' + minute + ':' + second;
+            document.querySelector('.curr-time').innerHTML = hour + ':' + minute + ':' + second;
+            // 点击可以动态的改变进度条
+            var percent = currentTime / totalTime;
+            document.querySelector('.currentProgress').style.width = percent * 99 + '%';
+            // 按钮跟着移动
+            document.querySelector('.step').style.left = percent * 99 + '%';
+        }
+        document.querySelector('.progress').onclick = function (e) {
+            var percent = e.offsetX / this.offsetWidth;
+            //        让视频根上进度
+            audio.currentTime = percent * totalTime;
+            document.querySelector('.currentProgress').style.width = percent * 99 + "%";
+            document.querySelector('.step').style.left = percent * 99 + '%';
+        }
+        step.onmousedown = function (e) {
+           var pageX = e.pageX ;
+           var inprox = e.pageX -  document.querySelector('.progress').offsetLeft;
+           var startx = pageX-inprox;
+           document.onmousemove = function (event) {
+               var pageX = event.pageX ;
+               var endx = pageX-startx;
+               var percent = endx /  document.querySelector('.progress').offsetWidth;
+               audio.currentTime = percent * totalTime;
+               document.querySelector('.currentProgress').style.width = percent * 99 + "%";
+               document.querySelector('.step').style.left = percent * 99 + '%';
+           }
+        }
+        document.onmouseup = function () {
+            document.onmousemove = null;
+        };
+        // 拖拽音乐 进行播放
+        document.body.ondragover = function (e) {
+            e.preventDefault();
+        }
+        document.querySelector('.container').ondrop = function (e) {
+            e.preventDefault();
+            var dropFile = e.dataTransfer.files[0];
+            console.log(dropFile);
+            var nameArr = dropFile.name.split('.')[0];
+            document.querySelector('.message').innerHTML = nameArr;
+            var reader = new FileReader;
+            reader.readAsDataURL(dropFile);
+            reader.onload = function () {
+                audio.src = this.result;
+                audio.play();
+            }
         }
     }
 </script>
